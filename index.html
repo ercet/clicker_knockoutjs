@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="node_modules/knockout/build/output/knockout-latest.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<link rel="stylesheet" href="css/app.css">
+	</head>
+	<body>
+		<div data-bind="with:currentCat">
+			<select data-bind="
+				options: $parent.catList, 
+				optionsText: function(item) {
+                	return item.name;
+                },
+                value: $parent.currentCat,
+                event: { 'change': $parent.onSelectedCat }
+            	">
+           	</select>
+			<hr>
+			
+			<div>
+				<img 
+					id="image" 
+					style="width:328px;height:328px;"
+					data-bind="click: $parent.incrementCounter, attr: { src: url }">
+			</div>
+					<h1 data-bind="text: name + ' is a ' + $parent.stage()"></h1>
+					<h3>Nicknames:</h3>
+					<ul data-bind="foreach: nicknames">
+						<li data-bind="text: $data"></li>
+					</ul>
+			<hr>
+			<div>
+				<button data-bind="click: $parent.onAdminShow">Show Admin</button>
+				<form data-bind="submit: $parent.onAdminSubmit, visible: !$parent.isAdminHidden()" >
+					<div>
+						<label for="name">Name:</label>
+						<input type="text" data-bind="textInput: name">
+					</div>
+					<div>
+						<label for="url">Image URL:</label>
+						<input type="text" data-bind="textInput: url">
+					</div>
+					<div>
+						<label for="count">Number of clicks:</label>
+						<input type="text" data-bind="textInput: count">
+					</div>
+					<div>
+						<button type="submit">Save</button>
+		    			<button data-bind="click: $parent.onAdminCancel">Cancel</button>
+					</div>
+				</form>
+			</div>
+			
+		</div>
+		
+	</body>
+</html>
